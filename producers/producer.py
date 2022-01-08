@@ -1,5 +1,6 @@
 import datetime
 import random
+import uuid
 from dataclasses import dataclass
 
 SENSOR_IDS = (
@@ -12,6 +13,7 @@ SENSOR_IDS = (
 
 @dataclass
 class Measurement:
+    id: str
     sensor_id: str
     temperature: float
     epoch: int
@@ -19,7 +21,16 @@ class Measurement:
     @classmethod
     def create_random_measurement(cls):
         return cls(
+            id=str(uuid.uuid4()),
             sensor_id=random.choice(SENSOR_IDS),
             temperature=random.randint(10, 35) + round(random.random(), 2),
             epoch=int(datetime.datetime.now().timestamp()),
         )
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "sensor_id": self.sensor_id,
+            "temperature": self.temperature,
+            "epoch": self.epoch,
+        }
