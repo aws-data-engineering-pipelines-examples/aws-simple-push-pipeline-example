@@ -5,6 +5,7 @@ from concurrent import futures
 from time import sleep
 
 import requests
+from colorama import Fore
 
 import config
 from models import TemperatureMeasurement
@@ -52,17 +53,20 @@ if __name__ == "__main__":
 
     fn_args = ((q, err_q, app_args.max_delay) for _ in range(app_args.n_workers))
 
+    print("*" * 20)
     print(
-        f"Starting {app_args.n_workers} worker(s) with {app_args.max_delay} "
+        f"{Fore.YELLOW}Starting {app_args.n_workers} worker(s) with {app_args.max_delay} "
         "seconds of max delay between producing new event."
     )
+    print()
 
     with futures.ThreadPoolExecutor(max_workers=app_args.n_workers) as executor:
         executor.map(produce_random_event, fn_args)
 
         while True:
             print(
-                f"Produced events count: {q.qsize()} | Errors: {err_q.qsize()}",
+                f"{Fore.CYAN}Produced events count: {Fore.GREEN}{q.qsize()} {Fore.CYAN}| "
+                f"{Fore.CYAN}Errors: {Fore.RED}{err_q.qsize()}",
                 end="\r",
             )
             sleep(0.5)
