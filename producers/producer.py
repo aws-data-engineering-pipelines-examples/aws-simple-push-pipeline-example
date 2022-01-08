@@ -1,5 +1,6 @@
 import argparse
 import datetime
+import queue
 import random
 import uuid
 from concurrent import futures
@@ -39,10 +40,12 @@ class Measurement:
         }
 
 
-def produce_random_event(max_delay: int) -> None:
+def produce_random_event(args) -> None:
     while True:
-        event = Measurement.create_random_measurement()
-        print(f"Sending {event} event.")
+        _ = Measurement.create_random_measurement()
+        counter_queue, max_delay = args
+        # implementation of event producing goes here
+        counter_queue.put(1)
         sleep(random.randint(1, max_delay))
 
 
@@ -52,7 +55,7 @@ if __name__ == "__main__":
         "-n-workers",
         type=int,
         default=1,
-        help=("Amount of workers that will be spawn to produce random events."),
+        help="Amount of workers that will be spawn to produce random events.",
     )
     parser.add_argument(
         "-max-delay",
@@ -64,13 +67,19 @@ if __name__ == "__main__":
         ),
     )
 
-    args = parser.parse_args()
+    app_args = parser.parse_args()
+    q = queue.Queue()
 
-    fn_args = (args.max_delay for _ in range(args.n_workers))
+    fn_args = [(q, app_args.max_delay) for _ in range(app_args.n_workers)]
 
     print(
-        f"Starting {args.n_workers} worker(s) with {args.max_delay} seconds of max delay between producing new event."
+        f"Starting {app_args.n_workers} worker(s) with {app_args.max_delay} "
+        "seconds of max delay between producing new event."
     )
 
-    with futures.ThreadPoolExecutor(max_workers=args.n_workers) as executor:
+    with futures.ThreadPoolExecutor(max_workers=app_args.n_workers) as executor:
         executor.map(produce_random_event, fn_args)
+
+        while True:
+            print(f"Produced events count: {q.qsize()}", end="\r")
+            sleep(0.5)
