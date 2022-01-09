@@ -40,18 +40,15 @@ Data producer is coded in Python 3. It has simple requirements (`requests` and `
 Running below script may lead to generating costs on your AWS account. Be sure to know what you're doing ;-).
 
 To start producer:
-* make sure all dependencies from `requirements.txt` are installed (i.e. use virtual environment and activate it)
-* run `python start_producer.py -n-workers 1 -max-delay 5`
+* project users `Docker` & `docker-compose`. Make sure you have them installed on your computer.
+* build with `docker-compose build`
+* run producer with `docker-compose run producer python start_producer.py -n-events 50 -n-workers 5 -max-delay 2`
 
-Streaming throughput can be adjusted with below `-n-workers` & `-max-delay` parameters:
+Producer script accepts following input parameters:
+* `-n-events` - amount of events that will be produced
 * `-n-workers` - amount of concurrent workers (threads) that will be producing events
 * `-max-delay` - time interval (in seconds) that worker sleeps for before producing new event (picked randomly from range 1 to `-max-delay` value)
 
 To stop producer:
-* Linux: press CTRL + C multiple times
-* Windows: press CTRL + Break (some keyboard call it pause)
-
-Above will be most probably replaced with shell scripts when project will be dockerized.
-
-## Demo
-![data flow gif](img/data-flow.gif)
+* press CTRL + C / CTRL + Break (some keyboard call it pause) multiple times (should be quicker)
+* or use `docker-compose down`
