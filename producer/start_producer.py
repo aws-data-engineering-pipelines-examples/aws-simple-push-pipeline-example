@@ -1,6 +1,7 @@
 import argparse
 import queue
 import random
+import sys
 from concurrent import futures
 from time import sleep
 
@@ -46,8 +47,20 @@ if __name__ == "__main__":
             "Randomly picked from range 1 to -max-delay input argument value."
         ),
     )
-
     app_args = parser.parse_args()
+
+    user_confirmation = input(
+        (
+            f"{Fore.RED}You're about to start streaming process ({app_args.n_events} events | {app_args.n_workers}"
+            " workers that might generate costs on your AWS account. Please confirm (Y/n) before proceeding: "
+        )
+    )
+
+    if user_confirmation != "Y":
+        print("Bye!")
+        sys.exit(0)
+    print()
+
     q = queue.Queue()
     err_q = queue.Queue()
 
