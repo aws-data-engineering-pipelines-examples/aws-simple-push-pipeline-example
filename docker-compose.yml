@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  producer:
+    build: .
+    volumes:
+      - ./producer:/app
+    env_file:
+      - .env
