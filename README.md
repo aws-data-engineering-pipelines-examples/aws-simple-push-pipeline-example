@@ -20,6 +20,12 @@ Shape of event (JSON):
 Event is sent through HTTP POST method to Amazon API Gateway endpoint.
 API Gateway endpoint is integrated with Lambda function which takes care of simple data transformation and loading transformed JSON file to S3 bucket.
 
+## Repository structure
+* `config.py` - place for configuration
+* `models.py` - file containing definition of temperature measurement model
+* `start_producer.py` - script containing code for spinning up event producers
+
+Linting/code formatting configuration (I use `pre-commit` for pre-commit pipeline & `black` for autoformatting code & `flake8` for code linting) live in `.pre-commit-config.yaml` and `setup.cfg`.
 ## Configuration
 Pipeline requires 2 environment variables:
 * `API_URL` - url for API Gateway endpoint that implements `POST` method (Lambda function for data ingestion)
@@ -36,6 +42,10 @@ Running below script may lead to generating costs on your AWS account. Be sure t
 To start producer:
 * make sure all dependencies from `requirements.txt` are installed (i.e. use virtual environment and activate it)
 * run `python start_producer.py -n-workers 1 -max-delay 5`
+
+Streaming throughput can be adjusted with below `-n-workers` & `-max-delay` parameters:
+* `-n-workers` - amount of concurrent workers (threads) that will be producing events
+* `-max-delay` - time interval (in seconds) that worker sleeps for before producing new event (picked randomly from range 1 to `-max-delay` value)
 
 To stop producer:
 * Linux: press CTRL + C multiple times
