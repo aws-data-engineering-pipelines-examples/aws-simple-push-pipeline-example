@@ -53,7 +53,7 @@ Pipeline requires 2 environment variables:
 
 I use `.env` file (located at the root of the repo) to keep these secrets safe (see `.env.example` for an example of such file).
 
-## Starting consumer
+## Starting producer
 Data producer is coded in Python 3. It has simple requirements (`requests` and `colorama`) listed in `requirements.txt`.
 
 **Warning**<br>
