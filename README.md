@@ -72,3 +72,6 @@ Producer script accepts following input parameters:
 To stop producer:
 * press CTRL + C / CTRL + Break (some keyboard call it pause) multiple times (should be quicker)
 * or use `docker-compose down`
+
+Screenshot from producer script in action:
+![producer script screenshot](static/producer_script_output.png)
