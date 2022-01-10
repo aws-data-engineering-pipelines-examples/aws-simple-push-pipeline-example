@@ -22,7 +22,7 @@ def parse_measurement_time(epoch: int) -> str:
 def lambda_handler(event, context):
     event_id = event.get("id")
     s3 = boto3.resource("s3")
-    s3_obj = s3.Object("simple-push-pipeline-bucket", f"{event_id}.json")
+    s3_obj = s3.Object("simple-push-pipeline-bucket", f"nopartitions/{event_id}.json")
 
     event["temp_group"] = calculate_temperature_group(event.get("temperature"))
     event["event_dt"] = parse_measurement_time(event.get("epoch"))
