@@ -20,7 +20,7 @@ Shape of event (JSON):
 Event is sent through HTTP POST method to Amazon API Gateway endpoint.
 API Gateway endpoint is integrated with Lambda function which takes care of simple data transformation and loading transformed JSON file to S3 bucket.
 
-Shape after transformation:
+Shape after transformation (JSON put to S3):
 ```
 {
     id: string (uuid),
