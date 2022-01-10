@@ -1,7 +1,7 @@
 # AWS simple push pipeline example
 
 ## Architecture diagram
-![architecture diagram](img/aws-simple-push-pipeline-bg.png)
+![architecture diagram](static/aws-simple-push-pipeline-bg.png)
 
 ## Description
 This repo contains an example of simple data pipeline built on top of **AWS** cloud.
