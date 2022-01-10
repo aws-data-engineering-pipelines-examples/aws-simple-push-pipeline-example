@@ -1,4 +1,4 @@
-// simple query for observing changes in Athena when producer script is streaming new data to S3
+-- simple query for observing changes in Athena when producer script is streaming new data to S3
 
 SELECT
        sensor_id

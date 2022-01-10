@@ -1,5 +1,7 @@
-// Definition of table was manually clicked in AWS Glue.
-// Below code comes from `Generate table DDL` feature.
+/*
+Definition of table was manually clicked in AWS Glue.
+Below code comes from `Generate table DDL` feature.
+*/
 
 CREATE EXTERNAL TABLE `temperature_measurements`(
   `id` string COMMENT 'from deserializer',
