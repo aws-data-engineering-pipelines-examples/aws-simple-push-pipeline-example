@@ -3,6 +3,10 @@
 ## Architecture diagram
 ![architecture diagram](static/aws-simple-push-pipeline-bg.png)
 
+## Goals of this project
+1. Build simple streaming pipeline to learn how AWS API Gateway / AWS Lambda works together.
+2. Practice infrastructure automation with Terraform (TBD).
+
 ## Description
 This repo contains an example of simple data pipeline built on top of **AWS** cloud.
 It's an emulation of streaming pipeline (push type). Streaming is emulated with a Python CLI producer script.
